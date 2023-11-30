@@ -1,2 +1,2 @@
 # interactive-comments-section
- Interactive comments built with Redux
+Interactive comments section built with React + Redux-toolkit.
