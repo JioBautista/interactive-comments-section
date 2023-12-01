@@ -16,6 +16,7 @@
   4. Improve text rendering
 */
 body {
+  background-color:lightgray;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -43,4 +44,15 @@ p, h1, h2, h3, h4, h5, h6 {
 */
 #root, #__next {
   isolation: isolate;
+}
+
+/* WRAPPER DIV LOCATED IN COMPONENTS/CONTENT */
+.wrapper {
+  max-width:800px;
+  margin-inline:auto;
+  padding-inline: 0.5rem;
+}
+/* CONTAINER DIV */
+.container  {
+  padding: 1rem 0;
 }

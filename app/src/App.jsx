@@ -1,8 +1,13 @@
 import React from "react";
-import data from "./data/data.json";
+import Content from "./components/Content";
+import "./index.css";
+
 function App() {
-  console.log(data);
-  return <div>App</div>;
+  return (
+    <div className="container">
+      <Content />
+    </div>
+  );
 }
 
 export default App;
