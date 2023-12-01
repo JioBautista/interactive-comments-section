@@ -16,6 +16,7 @@
   4. Improve text rendering
 */
 body {
+  font-family: 'Rubik', sans-serif;
   background-color:lightgray;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

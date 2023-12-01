@@ -5,16 +5,15 @@ import { useSelector } from "react-redux";
 function Comments() {
   const { data } = useSelector((store) => store.comments);
 
-  console.log(data.comments);
   return (
     <div className={styles.container}>
       {data.comments.map((item) => (
-        <React.Fragment>
+        <React.Fragment key={item.id}>
           <div className={styles.wrapper}>
             <div className={styles.user}>
               <img src={item.user.image.png} />
               <h3>{item.user.username}</h3>
-              <h3>{item.createdAt}</h3>
+              <p>{item.createdAt}</p>
             </div>
 
             <div className={styles.content}>
@@ -23,7 +22,7 @@ function Comments() {
 
             <div className={styles.btn}>
               <img src="public/images/icon-plus.svg" />
-              <span>{item.score}</span>
+              <h4>{item.score}</h4>
               <img src="public/images/icon-minus.svg" />
             </div>
 
