@@ -1,4 +1,5 @@
 import React from "react";
+import Replies from "./Replies";
 import styles from "../styles/comments.module.scss";
 import { useSelector } from "react-redux";
 
@@ -31,6 +32,7 @@ function Comments() {
               <p>Reply</p>
             </div>
           </div>
+          <Replies data={item} />
         </React.Fragment>
       ))}
     </div>

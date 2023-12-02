@@ -71,3 +71,15 @@
         font-weight: 500;
     }
 }
+
+// REPLIES DIV
+.repliesContainer {
+    padding-left: 2rem;
+    border-left: 2px solid hsl(223, 19%, 93%);
+}
+
+span {
+    cursor: pointer;
+    color: hsl(238, 40%, 52%);
+    font-weight: 700;
+}
