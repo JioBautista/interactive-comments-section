@@ -10,7 +10,6 @@ function AddComment() {
   const handleChange = (e) => {
     setTextValue(e.target.value);
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
