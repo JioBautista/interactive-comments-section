@@ -2,12 +2,11 @@ import React from "react";
 import styles from "../styles/comments.module.scss";
 
 function Replies({ data }) {
-  console.log(data);
   return (
     <div>
       <div className={styles.repliesContainer}>
         {data.replies.map((item) => (
-          <React.Fragment>
+          <React.Fragment key={item.id}>
             <div className={styles.wrapper}>
               <div className={styles.user}>
                 <img src={item.user.image.png} />

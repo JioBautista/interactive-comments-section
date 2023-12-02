@@ -53,6 +53,12 @@
     background-color: hsl(223, 19%, 93%);
     color: hsl(238, 40%, 52%);
     cursor: pointer;
+
+    button {
+        cursor: pointer;
+        border: none;
+        padding: 0.50rem;
+    }
 }
 
 // REPLY BUTTON DIV

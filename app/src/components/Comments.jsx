@@ -1,10 +1,12 @@
 import React from "react";
 import Replies from "./Replies";
 import styles from "../styles/comments.module.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { likeComment, dislikeComment } from "../features/commentSlice";
 
 function Comments() {
   const { data } = useSelector((store) => store.comments);
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.container}>
@@ -22,9 +24,13 @@ function Comments() {
             </div>
 
             <div className={styles.btn}>
-              <img src="public/images/icon-plus.svg" />
+              <button onClick={() => dispatch(likeComment(item.id))}>
+                <img src="public/images/icon-plus.svg" />
+              </button>
               <h4>{item.score}</h4>
-              <img src="public/images/icon-minus.svg" />
+              <button onClick={() => dispatch(dislikeComment(item.id))}>
+                <img src="public/images/icon-minus.svg" />
+              </button>
             </div>
 
             <div className={styles.replyBtn}>

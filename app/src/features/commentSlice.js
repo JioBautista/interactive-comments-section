@@ -5,7 +5,7 @@ const initialState = {
   data: data,
 };
 
-console.log(data.comments);
+console.log(data);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -21,9 +21,19 @@ export const commentSlice = createSlice({
         user: currentUser,
       });
     },
+    likeComment(state, action) {
+      const id = action.payload;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      state.data.comments[index].score += 1;
+    },
+    dislikeComment(state, action) {
+      const id = action.payload;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      state.data.comments[index].score -= 1;
+    },
   },
 });
 
-export const { addComment } = commentSlice.actions;
+export const { addComment, likeComment, dislikeComment } = commentSlice.actions;
 
 export default commentSlice.reducer;
