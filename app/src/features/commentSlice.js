@@ -31,9 +31,12 @@ export const commentSlice = createSlice({
       const index = state.data.comments.findIndex((obj) => obj.id === id);
       state.data.comments[index].score -= 1;
     },
+    replyComment(state, action) {
+
+    }
   },
 });
 
-export const { addComment, likeComment, dislikeComment } = commentSlice.actions;
+export const { addComment, likeComment, dislikeComment, replyComment } = commentSlice.actions;
 
 export default commentSlice.reducer;

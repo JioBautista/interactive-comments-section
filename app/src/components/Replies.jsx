@@ -1,4 +1,5 @@
 import React from "react";
+import AddComment from "../components/AddComment";
 import styles from "../styles/comments.module.scss";
 
 function Replies({ data }) {
@@ -15,7 +16,9 @@ function Replies({ data }) {
               </div>
 
               <div className={styles.content}>
-                <p><span>@{item.replyingTo}</span> {item.content}</p>
+                <p>
+                  <span>@{item.replyingTo}</span> {item.content}
+                </p>
               </div>
 
               <div className={styles.btn}>
