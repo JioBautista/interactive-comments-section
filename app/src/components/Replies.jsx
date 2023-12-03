@@ -3,6 +3,7 @@ import AddComment from "../components/AddComment";
 import styles from "../styles/comments.module.scss";
 
 function Replies({ data }) {
+  const [id, setId] = React.useState("");
   return (
     <div>
       <div className={styles.repliesContainer}>
@@ -29,9 +30,15 @@ function Replies({ data }) {
 
               <div className={styles.replyBtn}>
                 <img src="public/images/icon-reply.svg" />
-                <p>Reply</p>
+                <p onClick={() => setId(item.id)}>Reply</p>
               </div>
             </div>
+            {id === item.id && (
+              <div>
+                <textarea />
+                <button>SEND</button>
+              </div>
+            )}
           </React.Fragment>
         ))}
       </div>
