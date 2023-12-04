@@ -5,7 +5,6 @@ const initialState = {
   data: data,
 };
 
-console.log(data);
 
 export const commentSlice = createSlice({
   name: "comment",
@@ -48,12 +47,6 @@ export const commentSlice = createSlice({
         user: currentUser,
       });
     },
-    replyToAReply(state,action) {
-      const {content, id } = action.payload
-      const currentUser = state.data.currentUser
-      const replies = state.data.comments.map(item => item.replies);
-      console.log(replies)
-    }
   },
 });
 

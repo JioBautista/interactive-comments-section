@@ -45,7 +45,7 @@ function Replies({ data }) {
             {id === item.id && (
               <div className={styles.wrapper}>
                 <textarea />
-                <button onClick={() => dispatch(replyToAReply({content:textValue, id:item.id}))}>REPLY</button>
+                <button>REPLY</button>
               </div>
             )}
           </React.Fragment>
