@@ -1,5 +1,6 @@
 import React from "react";
 import Replies from "./Replies";
+import ReplyTo from "./ReplyTo";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { likeComment, dislikeComment } from "../features/commentSlice";
@@ -7,6 +8,7 @@ import { likeComment, dislikeComment } from "../features/commentSlice";
 function Comments() {
   const { data } = useSelector((store) => store.comments);
   const dispatch = useDispatch();
+  const [Id, setId] = React.useState("");
 
   return (
     <div className={styles.container}>
@@ -35,9 +37,10 @@ function Comments() {
 
             <div className={styles.replyBtn}>
               <img src="public/images/icon-reply.svg" />
-              <p>Reply</p>
+              <p onClick={() => setId(item.id)}>Reply</p>
             </div>
           </div>
+          {Id === item.id && <ReplyTo id={item.id} />}
           <Replies data={item} />
         </React.Fragment>
       ))}

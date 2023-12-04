@@ -6,6 +6,7 @@ const initialState = {
 };
 
 console.log(data);
+
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -31,9 +32,37 @@ export const commentSlice = createSlice({
       const index = state.data.comments.findIndex((obj) => obj.id === id);
       state.data.comments[index].score -= 1;
     },
+    replyToComment(state, action) {
+      const { content, id } = action.payload;
+      const currentUser = data.currentUser;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      const replyingToUser = state.data.comments[index].user.username;
+      const comment = state.data.comments[index];
+
+      comment.replies.push({
+        content: content,
+        createdAt: "Just Now",
+        id: nanoid(),
+        replyingTo: replyingToUser,
+        score: 0,
+        user: currentUser,
+      });
+    },
+    replyToAReply(state,action) {
+      const {content, id } = action.payload
+      const currentUser = state.data.currentUser
+      const replies = state.data.comments.map(item => item.replies);
+      console.log(replies)
+    }
   },
 });
 
-export const { addComment, likeComment, dislikeComment } = commentSlice.actions;
+export const {
+  addComment,
+  likeComment,
+  dislikeComment,
+  replyToComment,
+  replyToAReply,
+} = commentSlice.actions;
 
 export default commentSlice.reducer;
