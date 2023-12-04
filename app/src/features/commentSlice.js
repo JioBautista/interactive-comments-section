@@ -4,8 +4,7 @@ import data from "../data/data.json";
 const initialState = {
   data: data,
 };
-
-
+console.log(data)
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -50,12 +49,7 @@ export const commentSlice = createSlice({
   },
 });
 
-export const {
-  addComment,
-  likeComment,
-  dislikeComment,
-  replyToComment,
-  replyToAReply,
-} = commentSlice.actions;
+export const { addComment, likeComment, dislikeComment, replyToComment } =
+  commentSlice.actions;
 
 export default commentSlice.reducer;

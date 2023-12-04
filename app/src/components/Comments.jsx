@@ -40,8 +40,8 @@ function Comments() {
               <p onClick={() => setId(item.id)}>Reply</p>
             </div>
           </div>
-          {Id === item.id && <ReplyTo id={item.id} />}
-          <Replies data={item} />
+          {Id === item.id && <ReplyTo />}
+          <Replies data={item}  />
         </React.Fragment>
       ))}
     </div>

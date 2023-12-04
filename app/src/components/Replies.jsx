@@ -2,7 +2,6 @@ import React from "react";
 import ReplyTo from "./ReplyTo";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { replyToAReply } from "../features/commentSlice";
 
 function Replies({ data }) {
   const [id, setId] = React.useState("");
@@ -43,10 +42,7 @@ function Replies({ data }) {
               </div>
             </div>
             {id === item.id && (
-              <div className={styles.wrapper}>
-                <textarea />
-                <button>REPLY</button>
-              </div>
+              <ReplyTo repliesId={key.id}/>
             )}
           </React.Fragment>
         ))}
