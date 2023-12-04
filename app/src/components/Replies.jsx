@@ -41,9 +41,7 @@ function Replies({ data }) {
                 <p onClick={() => setId(item.id)}>Reply</p>
               </div>
             </div>
-            {id === item.id && (
-              <ReplyTo repliesId={key.id}/>
-            )}
+            {id === item.id && <ReplyTo />}
           </React.Fragment>
         ))}
       </div>

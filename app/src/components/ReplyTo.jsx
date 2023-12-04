@@ -3,7 +3,7 @@ import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { replyToComment } from "../features/commentSlice";
 
-function ReplyTo({  }) {
+function ReplyTo({ }) {
   const dispatch = useDispatch();
   const { data } = useSelector((store) => store.comments);
   const [textValue, setTextvalue] = React.useState();
@@ -17,7 +17,7 @@ function ReplyTo({  }) {
       <img src={data.currentUser.image.png} />
       <textarea onChange={handleChange} />
       <button
-        onClick={() => dispatch(replyToComment({ content: textValue, id: commentId }))}
+        onClick={() => dispatch(replyToComment({ content: textValue, id: id }))}
       >
         REPLY
       </button>
