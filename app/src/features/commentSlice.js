@@ -3,7 +3,6 @@ import data from "../data/data.json";
 
 const initialState = {
   data: data,
-  replies: data.comments.map((item) => item.replies),
 };
 console.log(data);
 console.log(initialState.replies);

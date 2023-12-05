@@ -13,10 +13,12 @@ function Comments() {
   const dispatch = useDispatch();
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleChange = (e) => {
     setTextValue(e.target.value);
   };
+
 
   return (
     <div className={styles.container}>
@@ -45,15 +47,18 @@ function Comments() {
 
             <div className={styles.replyBtn}>
               <img src="public/images/icon-reply.svg" />
-              <p onClick={() => setId(item.id)}>Reply</p>
+              <p onClick={() => setIsOpen(!isOpen)}>Reply</p>
             </div>
           </div>
-          {Id === item.id && (
+          {isOpen && (
             <div className={styles.replyTo}>
               <textarea onChange={handleChange} />
               <button
                 onClick={() =>
-                  dispatch(replyToComment({ content: textValue, id: item.id }))
+                  dispatch(
+                    replyToComment({ content: textValue, id: item.id }),
+                    setIsOpen(!isOpen)
+                  )
                 }
               >
                 REPLY
