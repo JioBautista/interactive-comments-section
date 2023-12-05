@@ -3,8 +3,9 @@ import data from "../data/data.json";
 
 const initialState = {
   data: data,
+  replies: data.comments.map((item) => item.replies.findIndex(obj => obj.id === 3)),
 };
-console.log(data)
+console.log(initialState.replies);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -46,10 +47,19 @@ export const commentSlice = createSlice({
         user: currentUser,
       });
     },
+    replyToAReply(state, action) {
+      const { content, id, id2 } = action.payload;
+      const findId = state.data.comments.map((item) => item.replies);
+    },
   },
 });
 
-export const { addComment, likeComment, dislikeComment, replyToComment } =
-  commentSlice.actions;
+export const {
+  addComment,
+  likeComment,
+  dislikeComment,
+  replyToComment,
+  replyToAReply,
+} = commentSlice.actions;
 
 export default commentSlice.reducer;

@@ -1,9 +1,9 @@
 import React from "react";
-import ReplyTo from "./ReplyTo";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
+import { replyToAReply } from "../features/commentSlice";
 
-function Replies({ data }) {
+function Replies({ data, commentId }) {
   const [id, setId] = React.useState("");
   const dispatch = useDispatch();
   const [textValue, setTextvalue] = React.useState();
@@ -12,6 +12,7 @@ function Replies({ data }) {
     setTextvalue(e.target.value);
   };
 
+  console.log(commentId);
   return (
     <div>
       <div className={styles.repliesContainer}>
@@ -41,7 +42,24 @@ function Replies({ data }) {
                 <p onClick={() => setId(item.id)}>Reply</p>
               </div>
             </div>
-            {id === item.id && <ReplyTo />}
+            {id === item.id && (
+              <div className={styles.replyTo}>
+                <textarea onChange={handleChange} />
+                <button
+                  onClick={() =>
+                    dispatch(
+                      replyToAReply({
+                        content: textValue,
+                        id: commentId,
+                        id2: item.id,
+                      })
+                    )
+                  }
+                >
+                  REPLY
+                </button>
+              </div>
+            )}
           </React.Fragment>
         ))}
       </div>
