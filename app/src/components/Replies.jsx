@@ -12,7 +12,6 @@ function Replies({ data, commentId }) {
     setTextvalue(e.target.value);
   };
 
-  console.log(commentId);
   return (
     <div>
       <div className={styles.repliesContainer}>

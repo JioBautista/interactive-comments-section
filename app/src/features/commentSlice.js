@@ -3,8 +3,9 @@ import data from "../data/data.json";
 
 const initialState = {
   data: data,
-  replies: data.comments.map((item) => item.replies.findIndex(obj => obj.id === 3)),
+  replies: data.comments.map((item) => item.replies),
 };
+console.log(data);
 console.log(initialState.replies);
 export const commentSlice = createSlice({
   name: "comment",
@@ -49,7 +50,19 @@ export const commentSlice = createSlice({
     },
     replyToAReply(state, action) {
       const { content, id, id2 } = action.payload;
-      const findId = state.data.comments.map((item) => item.replies);
+      const currentUser = data.currentUser;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      const replies = state.data.comments.map((item) => item.replies);
+      const replyingToUser = replies[index].find(obj => obj.id === id2);
+      
+      replies[index].push({
+        id: nanoid(),
+        content: content,
+        createdAt: "Just Now",
+        replyingTo: replyingToUser.user.username,
+        score: 0,
+        user: currentUser,
+      });
     },
   },
 });

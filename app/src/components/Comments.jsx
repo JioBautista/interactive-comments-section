@@ -14,7 +14,7 @@ function Comments() {
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
 
-  const handleChange = () => {
+  const handleChange = (e) => {
     setTextValue(e.target.value);
   };
 
