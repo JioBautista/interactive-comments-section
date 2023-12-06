@@ -3,14 +3,10 @@ import data from "../data/data.json";
 
 const initialState = {
   data: data,
-  replies: data.comments.map((item) =>
-    item.replies.map(obj => obj.score)
-  ),
-  index: data.comments.findIndex(obj => obj.id === 1)
+  data1: data.comments[1].replies[1].score,
 };
-console.log(data);
-console.log(initialState.replies[1][1]);
-console.log(initialState.index)
+
+// console.log(initialState.data1);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -73,7 +69,21 @@ export const commentSlice = createSlice({
     },
     likeReply(state, action) {
       const { id, id2 } = action.payload;
-      const index = state.data.comments.findIndex(obj => obj.id === id)
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      const index2 = state.data.comments[index].replies.findIndex(
+        (obj) => obj.id === id2
+      );
+
+      state.data.comments[index].replies[index2].score += 1;
+    },
+    dislikeReply(state, action) {
+      const { id, id2 } = action.payload;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      const index2 = state.data.comments[index].replies.findIndex(
+        (obj) => obj.id === id2
+      );
+
+      state.data.comments[index].replies[index2].score -= 1;
     },
   },
 });
@@ -85,6 +95,7 @@ export const {
   replyToComment,
   replyToAReply,
   likeReply,
+  dislikeReply,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

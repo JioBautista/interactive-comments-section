@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { replyToAReply, likeReply } from "../features/commentSlice";
+import {
+  replyToAReply,
+  likeReply,
+  dislikeReply,
+} from "../features/commentSlice";
 
 function Replies({ data, commentId }) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -18,7 +22,6 @@ function Replies({ data, commentId }) {
     setIsOpen(!isOpen);
   };
 
-  console.log(commentId);
   return (
     <div>
       <div className={styles.repliesContainer}>
@@ -41,12 +44,20 @@ function Replies({ data, commentId }) {
               </div>
 
               <div className={styles.btn}>
-                <button>
+                <button
+                  onClick={() =>
+                    dispatch(likeReply({ id: commentId, id2: item.id }))
+                  }
+                >
                   <img src="public/images/icon-plus.svg" />
                 </button>
 
                 <h4>{item.score}</h4>
-                <button>
+                <button
+                  onClick={() =>
+                    dispatch(dislikeReply({ id: commentId, id2: item.id }))
+                  }
+                >
                   <img src="public/images/icon-minus.svg" />
                 </button>
               </div>
