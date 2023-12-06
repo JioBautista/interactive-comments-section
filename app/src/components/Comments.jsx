@@ -19,6 +19,10 @@ function Comments() {
     setTextValue(e.target.value);
   };
 
+  const toggle = (id) => {
+    setId(id);
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className={styles.container}>
@@ -28,6 +32,7 @@ function Comments() {
             <div className={styles.user}>
               <img src={item.user.image.png} />
               <h3>{item.user.username}</h3>
+              {item.isCurrent && <div className={styles.currentUser}>you</div>}
               <p>{item.createdAt}</p>
             </div>
 
@@ -46,11 +51,20 @@ function Comments() {
             </div>
 
             <div className={styles.replyBtn}>
-              <img src="public/images/icon-reply.svg" />
-              <p onClick={() => setIsOpen(!isOpen)}>Reply</p>
+              {item.isCurrent ? (
+                <>
+                  <p>Delete</p>
+                  <p>Edit</p>
+                </>
+              ) : (
+                <>
+                  <img src="public/images/icon-reply.svg" />
+                  <p onClick={() => toggle(item.id)}>Reply</p>
+                </>
+              )}
             </div>
           </div>
-          {isOpen && (
+          {item.id === Id && isOpen && (
             <div className={styles.replyTo}>
               <textarea onChange={handleChange} />
               <button

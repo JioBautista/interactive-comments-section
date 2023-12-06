@@ -17,10 +17,18 @@
     border-radius: 0.25rem;
     display: grid;
     gap: 1rem;
+    grid-template-columns: auto auto;
     grid-template-areas:
         "user user"
         "content content"
         "btn replyBtn";
+
+    @media(min-width: 768px) {
+        grid-template-columns: 55px auto auto;
+        grid-template-areas: 
+        "btn user replyBtn"
+        "btn content content";
+    }
 
 }
 
@@ -43,21 +51,26 @@
 
 // BUTTON DIV
 .btn {
-    grid-area: btn;
+    padding: 0.50rem 0.25rem;
+    color: hsl(238, 40%, 52%);
+    background-color: hsl(223, 19%, 93%);
+    border-radius: 0.5rem;
     max-width: 100px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 0.50rem 0.25rem;
-    border-radius: 0.5rem;
-    background-color: hsl(223, 19%, 93%);
-    color: hsl(238, 40%, 52%);
+    grid-area: btn;
     cursor: pointer;
 
     button {
         cursor: pointer;
         border: none;
         padding: 0.50rem;
+    }
+    @media(min-width:768px) {
+        flex-direction: column;
+        justify-self: start;
+        padding: 0.75rem;
     }
 }
 
@@ -124,4 +137,12 @@ span {
         border: none;
         border-radius: 0.5rem;
     }
+}
+.currentUser {
+    padding: 0.25rem;
+    background-color: hsl(238, 40%, 52%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 700;
 }

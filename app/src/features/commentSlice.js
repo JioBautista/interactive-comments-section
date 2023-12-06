@@ -3,9 +3,14 @@ import data from "../data/data.json";
 
 const initialState = {
   data: data,
+  replies: data.comments.map((item) =>
+    item.replies.map(obj => obj.score)
+  ),
+  index: data.comments.findIndex(obj => obj.id === 1)
 };
 console.log(data);
-console.log(initialState.replies);
+console.log(initialState.replies[1][1]);
+console.log(initialState.index)
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -19,6 +24,7 @@ export const commentSlice = createSlice({
         replies: [],
         score: 0,
         user: currentUser,
+        isCurrent: true,
       });
     },
     likeComment(state, action) {
@@ -45,6 +51,7 @@ export const commentSlice = createSlice({
         replyingTo: replyingToUser,
         score: 0,
         user: currentUser,
+        isCurrent: true,
       });
     },
     replyToAReply(state, action) {
@@ -52,8 +59,8 @@ export const commentSlice = createSlice({
       const currentUser = data.currentUser;
       const index = state.data.comments.findIndex((obj) => obj.id === id);
       const replies = state.data.comments.map((item) => item.replies);
-      const replyingToUser = replies[index].find(obj => obj.id === id2);
-      
+      const replyingToUser = replies[index].find((obj) => obj.id === id2);
+
       replies[index].push({
         id: nanoid(),
         content: content,
@@ -61,7 +68,12 @@ export const commentSlice = createSlice({
         replyingTo: replyingToUser.user.username,
         score: 0,
         user: currentUser,
+        isCurrent: true,
       });
+    },
+    likeReply(state, action) {
+      const { id, id2 } = action.payload;
+      const index = state.data.comments.findIndex(obj => obj.id === id)
     },
   },
 });
@@ -72,6 +84,7 @@ export const {
   dislikeComment,
   replyToComment,
   replyToAReply,
+  likeReply,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

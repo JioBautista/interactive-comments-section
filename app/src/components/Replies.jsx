@@ -1,17 +1,24 @@
 import React from "react";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { replyToAReply } from "../features/commentSlice";
+import { replyToAReply, likeReply } from "../features/commentSlice";
 
 function Replies({ data, commentId }) {
-  const [id, setId] = React.useState("");
-  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [Id, setId] = React.useState("");
   const [textValue, setTextvalue] = React.useState();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setTextvalue(e.target.value);
   };
 
+  const toggle = (id) => {
+    setId(id);
+    setIsOpen(!isOpen);
+  };
+
+  console.log(commentId);
   return (
     <div>
       <div className={styles.repliesContainer}>
@@ -21,6 +28,9 @@ function Replies({ data, commentId }) {
               <div className={styles.user}>
                 <img src={item.user.image.png} />
                 <h3>{item.user.username}</h3>
+                {item.isCurrent && (
+                  <div className={styles.currentUser}>you</div>
+                )}
                 <p>{item.createdAt}</p>
               </div>
 
@@ -31,17 +41,31 @@ function Replies({ data, commentId }) {
               </div>
 
               <div className={styles.btn}>
-                <img src="public/images/icon-plus.svg" />
+                <button>
+                  <img src="public/images/icon-plus.svg" />
+                </button>
+
                 <h4>{item.score}</h4>
-                <img src="public/images/icon-minus.svg" />
+                <button>
+                  <img src="public/images/icon-minus.svg" />
+                </button>
               </div>
 
               <div className={styles.replyBtn}>
-                <img src="public/images/icon-reply.svg" />
-                <p onClick={() => setId(item.id)}>Reply</p>
+                {item.isCurrent ? (
+                  <>
+                    <p>Delete</p>
+                    <p>Edit</p>
+                  </>
+                ) : (
+                  <>
+                    <img src="public/images/icon-reply.svg" />
+                    <p onClick={() => toggle(item.id)}>Reply</p>
+                  </>
+                )}
               </div>
             </div>
-            {id === item.id && (
+            {item.id === Id && isOpen && (
               <div className={styles.replyTo}>
                 <textarea onChange={handleChange} />
                 <button
@@ -51,7 +75,8 @@ function Replies({ data, commentId }) {
                         content: textValue,
                         id: commentId,
                         id2: item.id,
-                      })
+                      }),
+                      setIsOpen(!isOpen)
                     )
                   }
                 >
