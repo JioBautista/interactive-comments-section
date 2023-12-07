@@ -66,6 +66,7 @@ export const commentSlice = createSlice({
         user: currentUser,
         isCurrent: true,
       });
+      console.log(index)
     },
     likeReply(state, action) {
       const { id, id2 } = action.payload;
