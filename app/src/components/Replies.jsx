@@ -29,8 +29,17 @@ function Replies({ data, commentId }) {
       <div className={styles.repliesContainer}>
         {data.replies.map((item) => (
           <React.Fragment key={item.id}>
-            
-            <DeleteModal Id={commentId} replyId={item.id} />
+
+            <DeleteModal>
+              <div className={styles.btns}>
+                <button onClick={() => dispatch(deleteComment("none"))}>
+                  NO,CANCEL
+                </button>
+                <button onClick={() => dispatch(isDeleted(commentId))}>
+                  YES, DELETE
+                </button>
+              </div>
+            </DeleteModal>
 
             <div className={styles.wrapper}>
               <div className={styles.user}>

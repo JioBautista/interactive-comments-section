@@ -6,6 +6,8 @@ const initialState = {
   display: "none",
 };
 
+console.log(data)
+
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -90,10 +92,8 @@ export const commentSlice = createSlice({
     },
     isDeleted(state, action) {
       const index = state.data.comments.findIndex(obj => obj.isCurrent === true)
-      state.data.comments.splice(index,1)
-
-      state.display = "none";
-      console.log(index)
+      state.data.comments.splice(index)
+      state.display = "none"
     },
   },
 });
