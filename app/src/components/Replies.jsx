@@ -1,4 +1,5 @@
 import React from "react";
+import DeleteModal from "./deleteModal";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -6,7 +7,6 @@ import {
   likeReply,
   dislikeReply,
   deleteComment,
-  DeleteModal,
 } from "../features/commentSlice";
 
 function Replies({ data, commentId }) {
