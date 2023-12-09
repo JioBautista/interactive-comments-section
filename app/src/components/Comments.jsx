@@ -1,11 +1,13 @@
 import React from "react";
 import Replies from "./Replies";
+import DeleteModal from "./deleteModal";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
   likeComment,
   dislikeComment,
   replyToComment,
+  deleteComment
 } from "../features/commentSlice";
 
 function Comments() {
@@ -28,6 +30,7 @@ function Comments() {
     <div className={styles.container}>
       {data.comments.map((item) => (
         <React.Fragment key={item.id}>
+          <DeleteModal commentId={item.id}/>
           <div className={styles.wrapper}>
             <div className={styles.user}>
               <img src={item.user.image.png} />
@@ -53,7 +56,7 @@ function Comments() {
             <div className={styles.replyBtn}>
               {item.isCurrent ? (
                 <>
-                  <p>Delete</p>
+                  <p onClick={() => dispatch(deleteComment("block"))}>Delete</p>
                   <p>Edit</p>
                 </>
               ) : (
