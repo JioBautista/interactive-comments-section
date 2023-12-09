@@ -89,11 +89,8 @@ export const commentSlice = createSlice({
       state.display = action.payload;
     },
     isDeleted(state, action) {
-      const id = action.payload
       const index = state.data.comments.findIndex(obj => obj.isCurrent === true)
-      const index2 = state.data.comments.map(item => item.replies.findIndex(obj => obj.isCurrent === true))
       state.data.comments.splice(index,1)
-      state.data.comments.map(item => item.replies.splice(index2,1))
 
       state.display = "none";
       console.log(index)
