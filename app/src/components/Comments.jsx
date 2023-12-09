@@ -30,7 +30,6 @@ function Comments() {
     <div className={styles.container}>
       {data.comments.map((item) => (
         <React.Fragment key={item.id}>
-          <DeleteModal commentId={item.id}/>
           <div className={styles.wrapper}>
             <div className={styles.user}>
               <img src={item.user.image.png} />
