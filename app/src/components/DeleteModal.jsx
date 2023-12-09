@@ -3,8 +3,8 @@ import styles from "../styles/deleteModal.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteComment, isDeleted } from "../features/commentSlice";
 
-function DeleteModal({ commentId }) {
-  const { display } = useSelector((store) => store.comments);
+function DeleteModal({ Id }) {
+  const { display, data } = useSelector((store) => store.comments);
   const dispatch = useDispatch();
 
   return (
@@ -21,13 +21,7 @@ function DeleteModal({ commentId }) {
             <button onClick={() => dispatch(deleteComment("none"))}>
               NO,CANCEL
             </button>
-            <button
-              onClick={() =>
-                dispatch(isDeleted({ id: commentId }))
-              }
-            >
-              YES, DELETE
-            </button>
+            <button onClick={() => dispatch(isDeleted(Id))}>YES, DELETE</button>
           </div>
         </div>
       </div>

@@ -29,7 +29,9 @@ function Replies({ data, commentId }) {
       <div className={styles.repliesContainer}>
         {data.replies.map((item) => (
           <React.Fragment key={item.id}>
-            <DeleteModal commentId={commentId} replyId={item.id} />
+            
+            <DeleteModal Id={commentId} replyId={item.id} />
+
             <div className={styles.wrapper}>
               <div className={styles.user}>
                 <img src={item.user.image.png} />
