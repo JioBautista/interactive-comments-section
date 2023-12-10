@@ -4,10 +4,10 @@ import data from "../data/data.json";
 const initialState = {
   data: data,
   display: "none",
+  commentId: 0,
+  repliesId: 0,
 };
-
-console.log(data)
-
+console.log(data);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -67,7 +67,6 @@ export const commentSlice = createSlice({
         user: currentUser,
         isCurrent: true,
       });
-      console.log(index);
     },
     likeReply(state, action) {
       const { id, id2 } = action.payload;
@@ -91,9 +90,6 @@ export const commentSlice = createSlice({
       state.display = action.payload;
     },
     isDeleted(state, action) {
-      const index = state.data.comments.findIndex(obj => obj.isCurrent === true)
-      state.data.comments.splice(index)
-      state.display = "none"
     },
   },
 });

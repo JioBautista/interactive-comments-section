@@ -7,7 +7,7 @@ import {
   likeComment,
   dislikeComment,
   replyToComment,
-  deleteComment
+  deleteComment,
 } from "../features/commentSlice";
 
 function Comments() {
@@ -82,6 +82,7 @@ function Comments() {
             </div>
           )}
           <Replies data={item} commentId={item.id} />
+          <DeleteModal />
         </React.Fragment>
       ))}
     </div>

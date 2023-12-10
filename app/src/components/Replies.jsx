@@ -1,5 +1,4 @@
 import React from "react";
-import DeleteModal from "./deleteModal";
 import styles from "../styles/comments.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -7,14 +6,16 @@ import {
   likeReply,
   dislikeReply,
   deleteComment,
+  isDeleted,
 } from "../features/commentSlice";
+import DeleteModal from "./deleteModal";
 
 function Replies({ data, commentId }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [Id, setId] = React.useState("");
   const [textValue, setTextvalue] = React.useState();
   const dispatch = useDispatch();
-
+  const { display } = useSelector((store) => store.comments);
   const handleChange = (e) => {
     setTextvalue(e.target.value);
   };
@@ -29,18 +30,6 @@ function Replies({ data, commentId }) {
       <div className={styles.repliesContainer}>
         {data.replies.map((item) => (
           <React.Fragment key={item.id}>
-
-            <DeleteModal>
-              <div className={styles.btns}>
-                <button onClick={() => dispatch(deleteComment("none"))}>
-                  NO,CANCEL
-                </button>
-                <button onClick={() => dispatch(isDeleted(commentId))}>
-                  YES, DELETE
-                </button>
-              </div>
-            </DeleteModal>
-
             <div className={styles.wrapper}>
               <div className={styles.user}>
                 <img src={item.user.image.png} />
