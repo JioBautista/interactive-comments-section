@@ -4,7 +4,7 @@ import data from "../data/data.json";
 const initialState = {
   data: data,
   display: "none",
-  commentID:'',
+  commentID: "",
 };
 export const commentSlice = createSlice({
   name: "comment",
@@ -86,12 +86,12 @@ export const commentSlice = createSlice({
     },
     deleteComment(state, action) {
       state.commentID = action.payload;
-      state.display = "block"
+      state.display = "block";
     },
     isDeleted(state, action) {
       const id = action.payload;
       state.data.comments = state.data.comments.filter(item => item.id !== id)
-      state.display = "none"
+      state.display = "none";
     },
   },
 });
