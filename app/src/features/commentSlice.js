@@ -88,7 +88,7 @@ export const commentSlice = createSlice({
       state.commentID = action.payload;
       state.display = "block";
     },
-    isDeleted(state, action) {
+    isCommentDeleted(state, action) {
       const id = action.payload;
       state.data.comments = state.data.comments.filter(item => item.id !== id)
       state.display = "none";
@@ -105,7 +105,7 @@ export const {
   likeReply,
   dislikeReply,
   deleteComment,
-  isDeleted,
+  isCommentDeleted,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

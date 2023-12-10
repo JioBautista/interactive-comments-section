@@ -6,9 +6,7 @@ import {
   likeReply,
   dislikeReply,
   deleteComment,
-  isDeleted,
 } from "../features/commentSlice";
-import DeleteModal from "./deleteModal";
 
 function Replies({ data, commentId }) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -68,7 +66,9 @@ function Replies({ data, commentId }) {
               <div className={styles.replyBtn}>
                 {item.isCurrent ? (
                   <>
-                    <p onClick={() => dispatch(deleteComment(item.id))}>Delete</p>
+                    <p onClick={() => dispatch(deleteComment(item.id))}>
+                      Delete
+                    </p>
                     <p>Edit</p>
                   </>
                 ) : (

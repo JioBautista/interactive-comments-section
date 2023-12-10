@@ -8,7 +8,6 @@ import {
   dislikeComment,
   replyToComment,
   deleteComment,
-  isDeleted,
 } from "../features/commentSlice";
 
 function Comments() {
