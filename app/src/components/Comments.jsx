@@ -8,10 +8,11 @@ import {
   dislikeComment,
   replyToComment,
   deleteComment,
+  isDeleted
 } from "../features/commentSlice";
 
 function Comments() {
-  const { data } = useSelector((store) => store.comments);
+  const { data , display } = useSelector((store) => store.comments);
   const dispatch = useDispatch();
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
@@ -82,7 +83,24 @@ function Comments() {
             </div>
           )}
           <Replies data={item} commentId={item.id} />
-          <DeleteModal commentId={item.id}/>
+          <div style={{ display: `${display}` }}>
+            <div className={styles.overlay}></div>
+            <div className={styles.wrapper}>
+              <h1>Delete comment</h1>
+              <p>
+                Are you sure you want to delete this comment? This will remove
+                the comment and can't be undone.
+              </p>
+              <div className={styles.btns}>
+                <button onClick={() => dispatch(deleteComment("none"))}>
+                  NO,CANCEL
+                </button>
+                <button onClick={() => dispatch(isDeleted(item.id))}>
+                  YES, DELETE
+                </button>
+              </div>
+            </div>
+          </div>
         </React.Fragment>
       ))}
     </div>

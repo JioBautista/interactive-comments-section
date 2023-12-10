@@ -4,8 +4,6 @@ import data from "../data/data.json";
 const initialState = {
   data: data,
   display: "none",
-  commentId: 0,
-  repliesId: 0,
 };
 console.log(data.comments);
 export const commentSlice = createSlice({
@@ -90,9 +88,9 @@ export const commentSlice = createSlice({
       state.display = action.payload;
     },
     isDeleted(state, action) {
-      const id = action.payload;
-      state.data.comments.splice(2,1);
-      state.display = "none";
+      const id = action.payload
+      const index = state.data.comments.findIndex(obj => obj.id === id)
+      state.data.comments.splice(index,1)
     },
   },
 });
