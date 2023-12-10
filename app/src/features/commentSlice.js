@@ -90,7 +90,9 @@ export const commentSlice = createSlice({
       state.display = action.payload;
     },
     isDeleted(state, action) {
-
+      const id = action.payload;
+      const index = state.data.comments.findIndex(obj => obj.id === id);
+      state.display = "none"
     },
   },
 });
