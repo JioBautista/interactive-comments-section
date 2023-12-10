@@ -6,6 +6,8 @@ const initialState = {
   display: "none",
   commentID: "",
 };
+console.log(initialState.replyID)
+console.log(initialState.commentsID)
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
