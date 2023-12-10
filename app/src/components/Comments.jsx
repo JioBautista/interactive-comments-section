@@ -82,7 +82,7 @@ function Comments() {
             </div>
           )}
           <Replies data={item} commentId={item.id} />
-          <DeleteModal />
+          <DeleteModal commentId={item.id}/>
         </React.Fragment>
       ))}
     </div>
