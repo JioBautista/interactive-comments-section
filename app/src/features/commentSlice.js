@@ -89,7 +89,7 @@ export const commentSlice = createSlice({
     },
     isDeleted(state, action) {
       const id = action.payload
-      const index = state.data.comments.findIndex(obj => obj.id === id)
+      const index = state.data.comments.findIndex(obj => obj.id == id)
       state.data.comments.splice(index,1)
     },
   },

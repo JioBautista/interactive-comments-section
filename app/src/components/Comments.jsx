@@ -12,12 +12,12 @@ import {
 } from "../features/commentSlice";
 
 function Comments() {
-  const { data , display } = useSelector((store) => store.comments);
+  const { data } = useSelector((store) => store.comments);
   const dispatch = useDispatch();
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const [display, setDisplay] = React.useState(false)
   const handleChange = (e) => {
     setTextValue(e.target.value);
   };
@@ -56,7 +56,7 @@ function Comments() {
             <div className={styles.replyBtn}>
               {item.isCurrent ? (
                 <>
-                  <p onClick={() => dispatch(deleteComment("block"))}>Delete</p>
+                  <p onClick={() => setDisplay(!display)}>Delete</p>
                   <p>Edit</p>
                 </>
               ) : (
@@ -83,19 +83,19 @@ function Comments() {
             </div>
           )}
           <Replies data={item} commentId={item.id} />
-          <div style={{ display: `${display}` }}>
+          <div style={{display: display ? "block" : "none"}}>
             <div className={styles.overlay}></div>
-            <div className={styles.wrapper}>
+            <div className={styles.delete}>
               <h1>Delete comment</h1>
               <p>
                 Are you sure you want to delete this comment? This will remove
                 the comment and can't be undone.
               </p>
               <div className={styles.btns}>
-                <button onClick={() => dispatch(deleteComment("none"))}>
+                <button onClick={() => setDisplay(!display)}>
                   NO,CANCEL
                 </button>
-                <button onClick={() => dispatch(isDeleted(item.id))}>
+                <button onClick={() => dispatch(isDeleted(item.id),setDisplay(!display))}>
                   YES, DELETE
                 </button>
               </div>
