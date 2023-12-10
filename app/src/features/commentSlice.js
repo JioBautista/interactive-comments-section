@@ -7,7 +7,7 @@ const initialState = {
   commentId: 0,
   repliesId: 0,
 };
-console.log(data);
+console.log(data.comments);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -91,8 +91,8 @@ export const commentSlice = createSlice({
     },
     isDeleted(state, action) {
       const id = action.payload;
-      const index = state.data.comments.findIndex(obj => obj.id === id);
-      state.display = "none"
+      state.data.comments.splice(2,1);
+      state.display = "none";
     },
   },
 });
