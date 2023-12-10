@@ -56,37 +56,8 @@ function Comments() {
             <div className={styles.replyBtn}>
               {item.isCurrent ? (
                 <>
-                  <p
-                    onClick={() =>
-                      dispatch(setDisplay(!display))
-                    }
-                  >
-                    Delete
-                  </p>
+                  <p onClick={() => dispatch(isDeleted(item.id))}>Delete</p>
                   <p>Edit</p>
-
-                  <div style={{ display: display ? "block" : "none" }}>
-                    <div className={styles.overlay}></div>
-                    <div className={styles.delete}>
-                      <h1>Delete comment</h1>
-                      <p>
-                        Are you sure you want to delete this comment? This will
-                        remove the comment and can't be undone.
-                      </p>
-                      <div className={styles.btns}>
-                        <button onClick={() => setDisplay(!display)}>
-                          NO,CANCEL
-                        </button>
-                        <button
-                          onClick={() =>
-                            dispatch(isDeleted(item.id), setDisplay(!display))
-                          }
-                        >
-                          YES, DELETE
-                        </button>
-                      </div>
-                    </div>
-                  </div>
                 </>
               ) : (
                 <>
@@ -94,6 +65,27 @@ function Comments() {
                   <p onClick={() => toggle(item.id)}>Reply</p>
                 </>
               )}
+            </div>
+          </div>
+
+          <div style={{ display: display ? "block" : "none" }}>
+            <div className={styles.overlay}></div>
+            <div className={styles.delete}>
+              <h1>Delete comment</h1>
+              <p>
+                Are you sure you want to delete this comment? This will remove
+                the comment and can't be undone.
+              </p>
+              <div className={styles.btns}>
+                <button onClick={() => setDisplay(!display)}>NO,CANCEL</button>
+                <button
+                  onClick={() =>
+                    dispatch(isDeleted(item.id), setDisplay(!display))
+                  }
+                >
+                  YES, DELETE
+                </button>
+              </div>
             </div>
           </div>
 

@@ -88,7 +88,8 @@ export const commentSlice = createSlice({
       state.display = action.payload;
     },
     isDeleted(state, action) {
-      state.data.comments = state.data.comments.filter(item => item.id !== action.payload)
+      const id = action.payload;
+      state.data.comments = state.data.comments.filter(item => item.id !== id)
     },
   },
 });
