@@ -68,9 +68,7 @@ function Replies({ data, commentId }) {
               <div className={styles.replyBtn}>
                 {item.isCurrent ? (
                   <>
-                    <p onClick={() => dispatch(deleteComment("block"))}>
-                      Delete
-                    </p>
+                    <p onClick={() => dispatch(deleteComment(item.id))}>Delete</p>
                     <p>Edit</p>
                   </>
                 ) : (

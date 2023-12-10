@@ -17,7 +17,6 @@ function Comments() {
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
-  const [display, setDisplay] = React.useState(false);
   const handleChange = (e) => {
     setTextValue(e.target.value);
   };
@@ -56,7 +55,7 @@ function Comments() {
             <div className={styles.replyBtn}>
               {item.isCurrent ? (
                 <>
-                  <p onClick={() => dispatch(isDeleted(item.id))}>Delete</p>
+                  <p onClick={() => dispatch(deleteComment(item.id))}>Delete</p>
                   <p>Edit</p>
                 </>
               ) : (
@@ -65,27 +64,6 @@ function Comments() {
                   <p onClick={() => toggle(item.id)}>Reply</p>
                 </>
               )}
-            </div>
-          </div>
-
-          <div style={{ display: display ? "block" : "none" }}>
-            <div className={styles.overlay}></div>
-            <div className={styles.delete}>
-              <h1>Delete comment</h1>
-              <p>
-                Are you sure you want to delete this comment? This will remove
-                the comment and can't be undone.
-              </p>
-              <div className={styles.btns}>
-                <button onClick={() => setDisplay(!display)}>NO,CANCEL</button>
-                <button
-                  onClick={() =>
-                    dispatch(isDeleted(item.id), setDisplay(!display))
-                  }
-                >
-                  YES, DELETE
-                </button>
-              </div>
             </div>
           </div>
 
@@ -106,6 +84,7 @@ function Comments() {
           )}
 
           <Replies data={item} commentId={item.id} />
+          <DeleteModal />
         </React.Fragment>
       ))}
     </div>

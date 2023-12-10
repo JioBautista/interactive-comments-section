@@ -4,8 +4,8 @@ import data from "../data/data.json";
 const initialState = {
   data: data,
   display: "none",
+  commentID:'',
 };
-console.log(data.comments);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -85,11 +85,13 @@ export const commentSlice = createSlice({
       state.data.comments[index].replies[index2].score -= 1;
     },
     deleteComment(state, action) {
-      state.display = action.payload;
+      state.commentID = action.payload;
+      state.display = "block"
     },
     isDeleted(state, action) {
       const id = action.payload;
       state.data.comments = state.data.comments.filter(item => item.id !== id)
+      state.display = "none"
     },
   },
 });
