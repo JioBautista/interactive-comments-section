@@ -5,9 +5,10 @@ const initialState = {
   data: data,
   display: "none",
   commentID: "",
+  replyID: "",
+  comments: false,
+  replies: false,
 };
-console.log(initialState.replyID)
-console.log(initialState.commentsID)
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -88,11 +89,31 @@ export const commentSlice = createSlice({
     },
     deleteComment(state, action) {
       state.commentID = action.payload;
+      state.comments = true;
       state.display = "block";
     },
-    isCommentDeleted(state, action) {
-      const id = action.payload;
-      state.data.comments = state.data.comments.filter(item => item.id !== id)
+    deleteReply(state, action) {
+      const { id, id2 } = action.payload;
+      state.commentID = id;
+      state.replyID = id2;
+      state.replies = true;
+      state.display = "block";
+    },
+    isReplyDeleted(state, action) {
+      const { id, id2 } = action.payload;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+
+      if (state.comments === true) {
+        state.data.comments = state.data.comments.filter(
+          (item) => item.id !== id
+        );
+      } else if (state.replies === true && id2) {
+        state.data.comments[index].replies = state.data.comments[
+          index
+        ].replies.filter((item) => item.id !== id2);
+      }
+      state.comments = false;
+      state.replies = false;
       state.display = "none";
     },
   },
@@ -107,7 +128,8 @@ export const {
   likeReply,
   dislikeReply,
   deleteComment,
-  isCommentDeleted,
+  deleteReply,
+  isReplyDeleted
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

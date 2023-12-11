@@ -5,7 +5,8 @@ import {
   replyToAReply,
   likeReply,
   dislikeReply,
-  deleteComment,
+  deleteReply,
+  isReplyDeleted,
 } from "../features/commentSlice";
 
 function Replies({ data, commentId }) {
@@ -66,7 +67,11 @@ function Replies({ data, commentId }) {
               <div className={styles.replyBtn}>
                 {item.isCurrent ? (
                   <>
-                    <p onClick={() => dispatch(deleteComment(item.id))}>
+                    <p
+                      onClick={() =>
+                        dispatch(deleteReply({ id: commentId, id2: item.id }))
+                      }
+                    >
                       Delete
                     </p>
                     <p>Edit</p>
