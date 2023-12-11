@@ -3,6 +3,7 @@
     padding: 0.5rem;
     border-radius: 0.25rem;
 }
+
 // WRAPPER DIV
 .wrapper {
     background-color: white;
@@ -18,6 +19,11 @@
         border: 1px solid lightgray;
         resize: none;
     }
+
+    textarea:focus {
+        outline: none;
+        border: 2px solid hsl(239, 57%, 85%);
+    }
 }
 
 // SEND DIV
@@ -29,12 +35,17 @@
     img {
         width: 34px;
     }
+
     button {
+        cursor: pointer;
         padding: 0.75rem 1.5rem;
         background-color: hsl(238, 40%, 52%);
         color: white;
         font-weight: 500;
         border: none;
         border-radius: 0.5rem;
+    }
+    button:hover {
+        background-color: hsl(239, 57%, 85%);
     }
 }

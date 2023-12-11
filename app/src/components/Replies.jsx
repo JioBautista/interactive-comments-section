@@ -67,13 +67,16 @@ function Replies({ data, commentId }) {
               <div className={styles.replyBtn}>
                 {item.isCurrent ? (
                   <>
+                    <img src="public/images/icon-delete.svg" />
                     <p
                       onClick={() =>
                         dispatch(deleteReply({ id: commentId, id2: item.id }))
                       }
+                      className={styles.replyDelete}
                     >
                       Delete
                     </p>
+                    <img src="public/images/icon-edit.svg" />
                     <p>Edit</p>
                   </>
                 ) : (

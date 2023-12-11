@@ -54,7 +54,9 @@ function Comments() {
             <div className={styles.replyBtn}>
               {item.isCurrent ? (
                 <>
-                  <p onClick={() => dispatch(deleteComment(item.id))}>Delete</p>
+                  <img src="public/images/icon-delete.svg" />
+                  <p onClick={() => dispatch(deleteComment(item.id))} className={styles.replyDelete}>Delete</p>
+                  <img src="public/images/icon-edit.svg"/>
                   <p>Edit</p>
                 </>
               ) : (
