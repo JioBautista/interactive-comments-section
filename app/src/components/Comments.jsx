@@ -8,10 +8,13 @@ import {
   dislikeComment,
   replyToComment,
   deleteComment,
+  editContentButton,
 } from "../features/commentSlice";
 
 function Comments() {
-  const { data } = useSelector((store) => store.comments);
+  const { data, editContents, currentContent, commentID } = useSelector(
+    (store) => store.comments
+  );
   const dispatch = useDispatch();
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
@@ -30,6 +33,7 @@ function Comments() {
       {data.comments.map((item) => (
         <React.Fragment key={item.id}>
           <div className={styles.wrapper}>
+            {/* USER DIV */}
             <div className={styles.user}>
               <img src={item.user.image.png} />
               <h3>{item.user.username}</h3>
@@ -37,10 +41,19 @@ function Comments() {
               <p>{item.createdAt}</p>
             </div>
 
+            {/* CONTENT DIV */}
             <div className={styles.content}>
-              <p>{item.content}</p>
+              {editContents && item.id === commentID ? (
+                <>
+                  <textarea defaultValue={currentContent} onChange={handleChange}></textarea>
+                  <button>UPDATE</button>
+                </>
+              ) : (
+                <p>{item.content}</p>
+              )}
             </div>
 
+            {/* LIKES AND DISLIKES BUTTON DIV */}
             <div className={styles.btn}>
               <button onClick={() => dispatch(likeComment(item.id))}>
                 <img src="public/images/icon-plus.svg" />
@@ -51,13 +64,21 @@ function Comments() {
               </button>
             </div>
 
+            {/* REPLY BUTTON. IF ITS THE CURRENT USER DISPLAY DELETE AND REPLY BUTTONS */}
             <div className={styles.replyBtn}>
               {item.isCurrent ? (
                 <>
                   <img src="public/images/icon-delete.svg" />
-                  <p onClick={() => dispatch(deleteComment(item.id))} className={styles.replyDelete}>Delete</p>
-                  <img src="public/images/icon-edit.svg"/>
-                  <p>Edit</p>
+                  <p
+                    onClick={() => dispatch(deleteComment(item.id))}
+                    className={styles.replyDelete}
+                  >
+                    Delete
+                  </p>
+                  <img src="public/images/icon-edit.svg" />
+                  <p onClick={() => dispatch(editContentButton(item.id))}>
+                    Edit
+                  </p>
                 </>
               ) : (
                 <>
@@ -68,6 +89,7 @@ function Comments() {
             </div>
           </div>
 
+          {/* REPLY TEXT AREA */}
           {item.id === Id && isOpen && (
             <div className={styles.replyTo}>
               <textarea onChange={handleChange} />
@@ -84,6 +106,7 @@ function Comments() {
             </div>
           )}
 
+          {/* REPLIES COMPONENT */}
           <Replies data={item} commentId={item.id} />
           <DeleteModal />
         </React.Fragment>

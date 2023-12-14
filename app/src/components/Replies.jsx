@@ -14,7 +14,7 @@ function Replies({ data, commentId }) {
   const [Id, setId] = React.useState("");
   const [textValue, setTextvalue] = React.useState();
   const dispatch = useDispatch();
-  const { display } = useSelector((store) => store.comments);
+
   const handleChange = (e) => {
     setTextvalue(e.target.value);
   };
@@ -30,6 +30,7 @@ function Replies({ data, commentId }) {
         {data.replies.map((item) => (
           <React.Fragment key={item.id}>
             <div className={styles.wrapper}>
+              {/* USER DIV */}
               <div className={styles.user}>
                 <img src={item.user.image.png} />
                 <h3>{item.user.username}</h3>
@@ -39,12 +40,14 @@ function Replies({ data, commentId }) {
                 <p>{item.createdAt}</p>
               </div>
 
+              {/* CONTENT DIV */}
               <div className={styles.content}>
                 <p>
                   <span>@{item.replyingTo}</span> {item.content}
                 </p>
               </div>
 
+              {/* LIKE AND DISLIKE BUTTONS DIV */}
               <div className={styles.btn}>
                 <button
                   onClick={() =>
@@ -64,6 +67,7 @@ function Replies({ data, commentId }) {
                 </button>
               </div>
 
+              {/* REPLY BUTTON. IF IT IS CURRENT USER DISPLAY DELETE AND EDIT BUTTONS. */}
               <div className={styles.replyBtn}>
                 {item.isCurrent ? (
                   <>
@@ -87,6 +91,8 @@ function Replies({ data, commentId }) {
                 )}
               </div>
             </div>
+
+            {/* REPLY TEXT AREA DIV */}
             {item.id === Id && isOpen && (
               <div className={styles.replyTo}>
                 <textarea onChange={handleChange} />

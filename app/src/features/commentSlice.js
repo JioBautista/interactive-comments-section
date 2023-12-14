@@ -8,7 +8,10 @@ const initialState = {
   replyID: "",
   comments: false,
   replies: false,
+  currentContent: "",
+  editContents: false,
 };
+console.log(initialState.content);
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -24,6 +27,7 @@ export const commentSlice = createSlice({
         user: currentUser,
         isCurrent: true,
       });
+      state.currentContent = action.payload;
     },
     likeComment(state, action) {
       const id = action.payload;
@@ -116,6 +120,13 @@ export const commentSlice = createSlice({
       state.replies = false;
       state.display = "none";
     },
+    editContentButton(state, action) {
+      state.commentID = action.payload;
+      state.editContents = !state.editContents;
+    },
+    updateContentButton(state,action) {
+      
+    }
   },
 });
 
@@ -129,7 +140,8 @@ export const {
   dislikeReply,
   deleteComment,
   deleteReply,
-  isReplyDeleted
+  isReplyDeleted,
+  editContentButton,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;
