@@ -8,8 +8,8 @@ const initialState = {
   replyID: "",
   comments: false,
   replies: false,
-  currentContent: "",
-  editContents: false,
+  editComment: false,
+  editReply: false,
 };
 console.log(initialState.content);
 export const commentSlice = createSlice({
@@ -27,7 +27,6 @@ export const commentSlice = createSlice({
         user: currentUser,
         isCurrent: true,
       });
-      state.currentContent = action.payload;
     },
     likeComment(state, action) {
       const id = action.payload;
@@ -103,6 +102,9 @@ export const commentSlice = createSlice({
       state.replies = true;
       state.display = "block";
     },
+    cancelDelete(state, action) {
+      state.display = "none"
+    },
     isReplyDeleted(state, action) {
       const { id, id2 } = action.payload;
       const index = state.data.comments.findIndex((obj) => obj.id === id);
@@ -120,13 +122,33 @@ export const commentSlice = createSlice({
       state.replies = false;
       state.display = "none";
     },
-    editContentButton(state, action) {
+    editCommentButton(state, action) {
       state.commentID = action.payload;
-      state.editContents = !state.editContents;
+      state.comments = true;
+      state.editComment = !state.editComment;
     },
-    updateContentButton(state,action) {
-      
-    }
+    editReplyButton(state,action) {
+      const {id, id2} = action.payload;
+      state.replyID = id2;
+      state.replies = true;
+      state.editReply = !state.editReply
+    },
+    updateComment(state, action) {
+      const { id, id2, updatedContent } = action.payload;
+      const index = state.data.comments.findIndex((obj) => obj.id === id);
+      const index2 = state.data.comments[index].replies.findIndex(obj => obj.id === id2)
+
+      if (state.comments === true) {
+        state.data.comments[index].content = state.data.comments[
+          index
+        ].content = updatedContent;
+      } else if(state.replies === true && id2) {
+        state.data.comments[index].replies[index2].content =
+          state.data.comments[index].replies[index2].content = updatedContent;
+      }
+      state.editComment = false;
+      state.editReply = false;
+    },
   },
 });
 
@@ -140,8 +162,11 @@ export const {
   dislikeReply,
   deleteComment,
   deleteReply,
+  cancelDelete,
   isReplyDeleted,
-  editContentButton,
+  editCommentButton,
+  editReplyButton,
+  updateComment,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

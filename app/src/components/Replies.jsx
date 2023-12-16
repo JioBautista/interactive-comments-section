@@ -6,17 +6,20 @@ import {
   likeReply,
   dislikeReply,
   deleteReply,
-  isReplyDeleted,
+  editReplyButton,
+  updateComment
 } from "../features/commentSlice";
 
 function Replies({ data, commentId }) {
+  const { replyID, editReply, } = useSelector(
+    (store) => store.comments
+  );
   const [isOpen, setIsOpen] = React.useState(false);
+  const [textValue, setTextValue] = React.useState();
   const [Id, setId] = React.useState("");
-  const [textValue, setTextvalue] = React.useState();
   const dispatch = useDispatch();
-
   const handleChange = (e) => {
-    setTextvalue(e.target.value);
+    setTextValue(e.target.value);
   };
 
   const toggle = (id) => {
@@ -29,7 +32,7 @@ function Replies({ data, commentId }) {
       <div className={styles.repliesContainer}>
         {data.replies.map((item) => (
           <React.Fragment key={item.id}>
-            <div className={styles.wrapper}>
+            <div className={`className=" animate__animated animate__slideInRight animate__faster ${styles.wrapper}`}>
               {/* USER DIV */}
               <div className={styles.user}>
                 <img src={item.user.image.png} />
@@ -42,9 +45,30 @@ function Replies({ data, commentId }) {
 
               {/* CONTENT DIV */}
               <div className={styles.content}>
-                <p>
-                  <span>@{item.replyingTo}</span> {item.content}
-                </p>
+                {editReply && item.id === replyID ? (
+                  <>
+                    <textarea
+                      defaultValue={item.content}
+                      onChange={handleChange}
+                    ></textarea>
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          updateComment({
+                            id: commentId,
+                            id2: item.id,
+                            updatedContent: textValue,
+                          }),
+                          setTextValue("")
+                        )
+                      }
+                    >
+                      UPDATE
+                    </button>
+                  </>
+                ) : (
+                  <p>{item.content}</p>
+                )}
               </div>
 
               {/* LIKE AND DISLIKE BUTTONS DIV */}
@@ -81,7 +105,7 @@ function Replies({ data, commentId }) {
                       Delete
                     </p>
                     <img src="public/images/icon-edit.svg" />
-                    <p>Edit</p>
+                    <p onClick={() => dispatch(editReplyButton({id: commentId, id2: item.id}))}>Edit</p>
                   </>
                 ) : (
                   <>

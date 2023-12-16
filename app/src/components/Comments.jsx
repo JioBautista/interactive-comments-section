@@ -2,23 +2,26 @@ import React from "react";
 import Replies from "./Replies";
 import DeleteModal from "./deleteModal";
 import styles from "../styles/comments.module.scss";
+import "animate.css"
 import { useSelector, useDispatch } from "react-redux";
 import {
   likeComment,
   dislikeComment,
   replyToComment,
   deleteComment,
-  editContentButton,
+  editCommentButton,
+  updateComment,
 } from "../features/commentSlice";
 
 function Comments() {
-  const { data, editContents, currentContent, commentID } = useSelector(
+  const { data, editComment, currentComment, commentID } = useSelector(
     (store) => store.comments
   );
   const dispatch = useDispatch();
   const [Id, setId] = React.useState("");
   const [textValue, setTextValue] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
+
   const handleChange = (e) => {
     setTextValue(e.target.value);
   };
@@ -32,7 +35,7 @@ function Comments() {
     <div className={styles.container}>
       {data.comments.map((item) => (
         <React.Fragment key={item.id}>
-          <div className={styles.wrapper}>
+          <div className={`className=" animate__animated animate__slideInRight animate__faster ${styles.wrapper}`}>
             {/* USER DIV */}
             <div className={styles.user}>
               <img src={item.user.image.png} />
@@ -43,10 +46,25 @@ function Comments() {
 
             {/* CONTENT DIV */}
             <div className={styles.content}>
-              {editContents && item.id === commentID ? (
+              {editComment && item.id === commentID ? (
                 <>
-                  <textarea defaultValue={currentContent} onChange={handleChange}></textarea>
-                  <button>UPDATE</button>
+                  <textarea
+                    defaultValue={item.content}
+                    onChange={handleChange}
+                  ></textarea>
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        updateComment({
+                          id: item.id,
+                          updatedContent: textValue,
+                        }),
+                        setTextValue('')
+                      )
+                    }
+                  >
+                    UPDATE
+                  </button>
                 </>
               ) : (
                 <p>{item.content}</p>
@@ -76,7 +94,7 @@ function Comments() {
                     Delete
                   </p>
                   <img src="public/images/icon-edit.svg" />
-                  <p onClick={() => dispatch(editContentButton(item.id))}>
+                  <p onClick={() => dispatch(editCommentButton(item.id))}>
                     Edit
                   </p>
                 </>
@@ -108,7 +126,6 @@ function Comments() {
 
           {/* REPLIES COMPONENT */}
           <Replies data={item} commentId={item.id} />
-          <DeleteModal />
         </React.Fragment>
       ))}
     </div>

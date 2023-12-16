@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/deleteModal.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { isReplyDeleted } from "../features/commentSlice";
+import { cancelDelete, isReplyDeleted } from "../features/commentSlice";
 
 function DeleteModal() {
   const { display, commentID, replyID } = useSelector(
@@ -10,16 +10,15 @@ function DeleteModal() {
   const dispatch = useDispatch();
   return (
     <>
-      <div style={{ display: `${display}` }}>
-        <div className={styles.overlay}></div>
-        <div className={styles.wrapper}>
+        <div className={styles.overlay} style={{ display: `${display}` }}></div>
+        <div className={styles.wrapper} style={{ display: `${display}` }}>
           <h1>Delete comment</h1>
           <p>
             Are you sure you want to delete this comment? This will remove the
             comment and can't be undone.
           </p>
           <div className={styles.btns}>
-            <button>NO,CANCEL</button>
+            <button onClick={() => dispatch(cancelDelete())}>NO,CANCEL</button>
             <button
               onClick={() =>
                 dispatch(isReplyDeleted({ id: commentID, id2: replyID }))
@@ -29,7 +28,6 @@ function DeleteModal() {
             </button>
           </div>
         </div>
-      </div>
     </>
   );
 }

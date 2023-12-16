@@ -13,9 +13,9 @@ function AddComment() {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <textarea placeholder="Add a comment..." onChange={handleChange} />
+        <textarea placeholder="Add a comment..." onChange={handleChange} value={textValue} />
         <img src="public/images/avatars/image-juliusomo.png" />
-        <button onClick={() => dispatch(addComment(textValue))}>SEND</button>
+        <button onClick={() => dispatch(addComment(textValue),setTextValue(''))}>SEND</button>
       </div>
     </div>
   );
